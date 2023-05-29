@@ -1,0 +1,41 @@
+// En numerosas oportunidades se ha observado que cientos de ballenas nadan juntas hacia la costa y quedan
+// varadas en la playa sin poder moverse. Algunos sostienen que se debe a una perdida de orientacion
+// posiblemente causada por la contaminacion sonora de los oceanos que interferirıa con su capacidad de
+// inter-comunicacion. En estos casos los equipos de rescate realizan enormes esfuerzos para regresarlas al
+// interior del mar y salvar sus vidas.
+// Se encuentran n ballenas varadas en una playa y se conocen los tiempos s1, s2, . . . , sn que cada ballena
+// es capaz de sobrevivir hasta que la asista un equipo de rescate. Dar un algoritmo voraz que determine el
+// orden en que deben ser rescatadas para salvar el mayor numero posible de ellas, asumiendo que llevar una
+// ballena mar adentro toma tiempo constante t, que hay un ´unico equipo de rescate y que una ballena no
+// muere mientras esta siendo regresada mar adentro.
+
+// 1) Criterio de Seleccion
+// s1 <= minimo 
+
+//2) En que estructuras de datos representara el problema 
+// Ballenas : Arreglo de tamanio n
+// Resultado : Arreglo de tamanio n 
+
+
+//3) Explique el algoritmo 
+// Nos fijamos cual es la ballena que aguanta menos tiempo, para rescatar esa ballena y guardamos el numero de ballena en el arreglo resultado
+// a los tiempos restantes de las otras ballenas les restamos T y realizamos el mismo procedimiento. 
+
+fun rescate (ballenas : Array [1...N] of Int, tiempo : Int) ret result : Array [1...N] of Int 
+    var minimo : Int 
+    var indice : Int
+    minimo := 99999
+    For j := 1 to N do
+        For i := 1 to N do 
+            if ballenas[i] < minimo ^ ballenas[i] >= 0 then
+                minimo := ballenas[i]
+                indice := i 
+            fi 
+        end
+        result[j] = ballenas[indice]
+        minimo = 99999
+        For i := 1 to N do 
+            ballenas[i] = ballenas[i] - tiempo 
+        end
+    end  
+end fun 

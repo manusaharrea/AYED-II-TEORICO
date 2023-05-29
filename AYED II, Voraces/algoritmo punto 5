@@ -1,0 +1,56 @@
+// Sos el flamante dueno de un telefono satelital, y se lo ofreces a tus n amigos para que lo lleven con
+// ellos cuando salgan de vacaciones el proximo verano. Lamentablemente cada uno de ellos ira a un lugar
+// diferente y en algunos casos, los perıodos de viaje se superponen. Por lo tanto es imposible prestarle el
+// telefono a todos, pero quisieras prestarselo al mayor numero de amigos posible.
+// Suponiendo que conoces los dıas de partida y regreso (pi y ri respectivamente) de cada uno de tus amigos,
+// ¿cual es el criterio para determinar, en un momento dado, a quien conviene prestarle el equipo?
+// Tener en cuenta que cuando alguien lo devuelve, recien a partir del d´ıa siguiente puede usarlo otro. Escribir
+// un algoritmo voraz que solucione el problema.
+
+//1) Criterio de seleccion 
+// Elegimos el que primero vuelva y que todavia no haya salido.
+//  a[i].partida > aux
+
+//2) En que estructuras de datos representara el problema 
+//type Amigo = Tuple 
+//             Nombre : String 
+//             Partida : Int 
+//             Vuelta : Int
+//             End Tuple
+// A : Arreglo de Amigo (dia de partida, dia de vuelta)
+// result: List of Amigo
+
+//3) Explique el algoritmo 
+// Ordenamos el arreglo segun los dias de vuelta, del mas proximo al ultimo. Una vez hecho esto le damos el celular al que primero lo devuelva y despues buscamos el proximo
+// que mas pronto vuelva y que no haya salido.
+
+proc sort (in/out a: Array [1...N of Amigo])
+    var aux : Amigo 
+    var indice : Int
+    var min_vuelta : Int
+    for j := 1 to N do 
+        min_vuelta := a[j].vuelta
+        for i := j+1 to N do 
+            if a[i].vuelta < min_vuelta then 
+                min_vuelta := a[i].vuelta
+                indice := i 
+            fi
+        end
+        aux := a[j]
+        a[j] := a[indice]
+        a[indice] = aux 
+    end 
+end proc 
+
+fun celular (a : Array [1...N] of Amigo) ret result : List of Amigo 
+    var aux : Int
+    sort(a)
+    addl (result, a[1])
+    aux = a[1].vuelta 
+    for i := 2 to N do 
+        if a[i].partida > aux then 
+            addr (result, a[i])
+            aux = a[i].vuelta  
+        fi 
+    end
+end fun 

@@ -1,0 +1,49 @@
+//Para obtener las mejores facturas y medialunas, es fundamental abrir el horno el menor n´umero de veces
+//posible. Por supuesto que no siempre es f´acil ya que no hay que sacar nada del horno demasiado temprano,
+//porque queda cruda la masa, ni demasiado tarde, porque se quema.
+//En el horno se encuentran n piezas de panader´ıa (facturas, medialunas, etc). Cada pieza i que se encuentra
+//en el horno tiene un tiempo m´ınimo necesario de cocci´on ti y un tiempo m´aximo admisible de cocci´on Ti
+//Si se la extrae del horno antes de ti quedar´a cruda y si se la extrae despu´es de Ti se quemar´a.
+//Asumiendo que abrir el horno y extraer piezas de ´el no insume tiempo, y que ti ≤ Ti para todo i ∈
+//{1, . . . , n}, ¿que criterio utilizarıa un algoritmo voraz para extraer todas las piezas del horno en perfecto
+//estado (ni crudas ni quemadas), abriendo el horno el menor numero de veces posible? Implementarlo.
+
+//1) Criterio de seleccion 
+// 
+//  
+
+//2) En que estructuras de datos representara el problema 
+// type facturas = Tuple
+//                  Nombre : Sting
+//                  Coccion : Int
+//                  Maximo : Int
+//                 End Tuple 
+//
+// horno : Arreglo de facturas
+// result : List of Facturas             
+//       
+
+//3) Explique el algoritmo 
+//  Ordenamos el arreglo de forma que queden los que menor tiempo maximo de coccion tienen al principio y ahi 
+//  cuando abrimos el horno para sacar esa, nos fijamos en las otras facturas con su tiempo de coccion 
+
+proc sort (in/out horno: Array [1...N] of Facturas)
+    var aux : Facturas
+    var minimo : Int 
+    var indice : Int 
+    minimo = 99999
+    for j := 1 to N do 
+        minimo := horno[j].maximo
+        for i := j+1 to N do 
+            if horno[i].maximo < minimo then 
+                minimo := horno[i].maximo
+                indice := i 
+            fi
+        end
+        aux := horno[j]
+        horno[j] := horno[indice]
+        horno[indice] = aux 
+    end 
+end proc 
+
+fun cocinar () ret 

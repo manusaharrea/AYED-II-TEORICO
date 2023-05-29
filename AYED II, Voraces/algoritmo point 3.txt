@@ -1,0 +1,48 @@
+// PUNTO 3
+// Se desea realizar un viaje en un autom´ovil con autonom´ıa A (en kil´ometros), desde la localidad l0 hasta la
+// localidad ln pasando por las localidades l1, . . . , ln−1 en ese orden. Se conoce cada distancia di ≤ A entre
+// la localidad li−1 y la localidad li (para 1 ≤ i ≤ n), y se sabe que existe una estaci´on de combustible en
+// cada una de las localidades.
+// Escribir un algoritmo que compute el menor n´umero de veces que es necesario cargar combustible para
+// realizar el viaje, y las localidades donde se realizar´ıa la carga.
+// Suponer que inicialmente el tanque de combustible se encuentra vac´ıo y que todas las estaciones de servicio
+// cuentan con suficiente combustible.
+
+
+// 1) Criterio de seleccion
+// Si el tanque - distancia < 0 => Deberiamos cargar Nafta 
+//
+// 2)¿En que estructuras de datos representara la informacion del problema?
+// Localidades: Arreglos de Tuplas
+// Nafta actual: Real
+// Resultado: Tupla de un Natural y una lista
+//
+// 3)Explicar el algoritmo
+// El algoritmo se basa en calcular la nafta que hay en el tanque y restarle la distancia , si este resultado es menor que cero significa que con la 
+// nafta actual no llegamos a destino, entonces debemos cargar nafta y le sumamos uno al Natural del resultado y guardamos el nombre de la localidad 
+// en la lista.
+//
+
+type result = tuple 
+                contador : Nat 
+                Lista : List of String
+              end Tuple 
+
+type localidad = tuple 
+                distancia : float 
+                nombre : String 
+                end tuple
+
+fun nafta (localidades: array [0...n] of localidad, nafta : float , autonomia : float) ret: result
+    result.contador = 1
+    result.lista = addl(a[0].string)
+    nafta = nafta - a[1].distancia
+    for i = 1 to n-1 do 
+        if nafta - a[i+1].distancia < 0 then 
+            nafta = autonomia 
+            result.contador = result.contador + 1
+            result.lista = addl (a[i].string)    
+        od
+    nafta = nafta - a[i+1].distancia            
+    end
+end fun 
